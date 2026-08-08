@@ -21,19 +21,31 @@ const register = async (req, res) => {
             message: "Account with this email already exists" 
         });
     }
-
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create new user
     const user = await User.create({
         username,
         email,
-        password
+        password: hashedPassword
     });
+
+    const token = jwt.sign({
+        userId: user._id,
+        email: user.email
+    }, process.env.JWT_SECRET, {expiresIn: "1d"});
+
 
     return res.status(201).json({
         message: "User registered successfully",
-        user
+      
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }
     });
+
 }
 
 export default { register };

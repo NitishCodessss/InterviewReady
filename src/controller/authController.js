@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 /**
@@ -35,10 +35,11 @@ const register = async (req, res) => {
         email: user.email
     }, process.env.JWT_SECRET, {expiresIn: "1d"});
 
+    res.cookie("token", token,)
+
 
     return res.status(201).json({
         message: "User registered successfully",
-      
         user: {
             id: user._id,
             username: user.username,
@@ -48,4 +49,44 @@ const register = async (req, res) => {
 
 }
 
-export default { register };
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    if(!email || !password){
+        return res.status(400).json({ 
+            message: "All fields are required" 
+        });
+    }
+    const user = await User.findOne({ email });
+    if(!user){
+        return res.status(400).json({ 
+            message: "Invalid credentials" 
+        });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if(!isPasswordValid){
+        return res.status(400).json({ 
+            message: "password is incorrect" 
+        });
+    }
+
+    const token = jwt.sign({
+        userId: user._id,
+        email: user.email
+    }, process.env.JWT_SECRET, {expiresIn: "1d"});  
+
+    res.cookie("token", token,)
+
+    return res.status(200).json({
+        message: "User logged in successfully",
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }
+    });
+}
+
+
+export default  { register,
+     login };

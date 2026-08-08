@@ -32,7 +32,7 @@ const register = async (req, res) => {
     });
 
     const token = jwt.sign({
-        userId: user._id,
+        id: user._id,
         email: user.email
     }, process.env.JWT_SECRET, {expiresIn: "1d"});
 
@@ -72,7 +72,7 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({
-        userId: user._id,
+        id: user._id,
         email: user.email
     }, process.env.JWT_SECRET, {expiresIn: "1d"});  
 
@@ -102,9 +102,33 @@ const logout = async (req, res) => {
     })
 }
 
+const get_me = async (req, res) => {
+        
+        if (!req.user || !req.user.id) {
+            return res.status(400).json({ message: "User not found or not authenticated" });
+        }
+        const user = await User.findById(req.user.id)
+        if(!user){
+            return res.status(404).json({
+                message:"User not loggedIn"
+            })
+        }
+            res.status(200).json({
+            message: "User's details fetched successfully",
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+        }
+    })
+   
+
+}
+
 
 export default  { 
     register,
     login, 
-    logout 
+    logout,
+    get_me
 };

@@ -20,4 +20,12 @@ router.post("/register", authController.register)
 
 router.post("/login", authController.login);
 
+/**
+ * @route Get /api/auth/logout
+ * @description Logout the user
+ * @access Public
+ */
+
+router.get("/logout", authController.logout);
+
 export default router;

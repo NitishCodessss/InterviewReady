@@ -1,6 +1,7 @@
 import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import blacklistToken from "../models/blackList.model.js"
 /**
  * @name register
  * @description Register a new user 
@@ -87,6 +88,23 @@ const login = async (req, res) => {
     });
 }
 
+const logout = async (req, res) => {
+    const token = req.cookies.token
 
-export default  { register,
-     login };
+    if(token){
+        await blacklistToken.create({token})
+
+    }
+
+    res.clearCookie("token")
+    res.status(201).json({
+        message: "User logged out "
+    })
+}
+
+
+export default  { 
+    register,
+    login, 
+    logout 
+};

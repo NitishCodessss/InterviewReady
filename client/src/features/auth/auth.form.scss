@@ -1,69 +1,64 @@
-main{
-    min-height: 100vh;
-    width: 100%;
+main {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftBar {
+  min-height: 100vh;
+  width: 45%;
+  background-color: rgb(82, 79, 79);
+}
+
+.rightBar {
+  min-height: 100vh;
+  width: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form-container {
+    min-width: 350px;
+  }
+  h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    color: rgb(214, 208, 208);
+    margin-bottom: 3px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-
-.leftBar{
-    min-height: 100vh;
-    width: 45%;
-    background-color: rgb(82, 79, 79);
-}
-
-.rightBar{
-    min-height: 100vh;
-    width: 55%;
+    input {
+      border: none;
+      outline: none;
+      padding-inline: 1rem;
+      padding-block: 0.75rem;
+      border-radius: 0.75rem;
+    }
+  }
+  p {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 0.5rem;
 
-
-    .form-container{
-        min-width: 350px;
+    & a {
+      color: rgb(254, 31, 76);
+      text-decoration: none;
     }
-    h1{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: rgb(214, 208, 208);
-        margin-bottom: 3px ;
+    & span {
+      margin-left: 0.4rem;
     }
-    form{
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    .input-group{
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-
-        input{
-            border: none;
-            outline: none;
-            padding-inline: 1rem;
-            padding-block: 0.75rem;
-            border-radius: 0.75rem;
-
-        }
-    }
-    p{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 0.5rem;
-        
-        & a{
-            color: rgb(254, 31, 76);
-            text-decoration: none;
-        }
-        & span{
-            margin-left: 0.4rem;
-        }
-    }
-    
+  }
 }

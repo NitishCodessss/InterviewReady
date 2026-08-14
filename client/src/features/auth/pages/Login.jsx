@@ -5,14 +5,14 @@ import { useAuth } from "../hooks/useAuth.js";
 
 const Login = () => {
   const navigate = useNavigate();
-  const {loading, handleLogin} = useAuth()
+  const { loading, handleLogin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await handleLogin({ email, password });
-    navigate('/')
+    navigate("/");
   };
   if (loading) {
     return (

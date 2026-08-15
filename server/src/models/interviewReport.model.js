@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 /**
+ * 
  * Job description
  * resume
  * self description
@@ -13,6 +14,8 @@ import mongoose from "mongoose";
  * 
  * prepration plan
  */
+
+
 const technicalQuestionSchema = new mongoose.Schema({
     question:{
         type: String,
@@ -91,7 +94,7 @@ const interviewReportSchema = new mongoose.Schema({
     behavioralQuestion:[behaviouralQuestionSchema],
     skillGap:[skillGapSchema],
     preparationPlan:[preparationPlanSchema]
-})
+},{timeStamps:true})
 
 const interviewReportModel = mongoose.Model("InterviewReport", interviewReportSchema);
 export default interviewReportModel;
